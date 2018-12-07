@@ -3,15 +3,19 @@
 #include <string>
 #include <vector>
 #include "Node.h"
+#include "Graph.h"
 
 using namespace std;
 
-bool parse_data_file();
+bool parse_data_file(Graph);
 
 int main(){
   cout << "TSP PROJECT STARTED";
 
-  bool generate_data = parse_data_file();
+  Graph *mygraph = new Graph();
+
+  bool generate_data = parse_data_file(*mygraph);
+
   if (generate_data == true){
     cout << "Data generated successfully" << '\n' << '\n';
   }
@@ -25,7 +29,7 @@ int main(){
  / simple function to parse csv into data structure
  /
 */
-bool parse_data_file(){
+bool parse_data_file(Graph mygraph){
   string currLine;
   int part_counter = 3;
   int curr_x;
@@ -37,19 +41,22 @@ bool parse_data_file(){
   {
     while ( getline (myfile,currLine, ',') )
     {
+      //cout << part_counter << '\n';
       if(part_counter % 3 == 0){
         curr_id = stoi(currLine);
-        cout << "id = " << curr_id << '\n';
+        //cout << "id = " << curr_id << '\n';
       }
       else if(part_counter % 3 == 1){
         curr_x = stoi(currLine);
-        cout << "x = " << curr_x << '\n';
+        //cout << "x = " << curr_x << '\n';
       }
       else if(part_counter % 3 == 2){
         curr_y = stoi(currLine);
-        cout << "y = " << curr_y << '\n';
+        //cout << "y = " << curr_y << '\n';
       }
-      
+      Node *curr_node = new Node(curr_x, curr_y, curr_id);
+      mygraph.add_node(*curr_node);
+
       part_counter++;
     }
     myfile.close();
