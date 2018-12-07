@@ -17,11 +17,10 @@ class Graph:
     def __init__(self):
         self.nodelist = []
         self.path = []
+
     def calc_dist(self, a, b):
-        if self.nodelist[b].getx()-self.nodelist[a].getx() == 0:
-            return abs((self.nodelist[b].gety() - self.nodelist[a].gety()))
-        else:
-            return abs((self.nodelist[b].gety() - self.nodelist[a].gety())/(self.nodelist[b].getx()-self.nodelist[a].getx()))
+        return math.sqrt((self.nodelist[b].gety() - self.nodelist[a].gety())**2 + (self.nodelist[b].getx()-self.nodelist[a].getx())**2)
+        
     def calc_path_cost(self):
         totalCost = 0
         for i in self.path:
