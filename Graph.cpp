@@ -54,5 +54,7 @@ void Graph::Two_Opt() {
 
 void Swap(const int& i, const int& k) {
 	int sizeOfTour = nodelist.size;
-
+	// 1. take route[0] to route[i-1] and add them in order to new_route
+	// 2. take route[i] to route[k] and add them in reverse order to new_route
+	// 3. take route[k+1] to end and add them in order to new_route
 }
