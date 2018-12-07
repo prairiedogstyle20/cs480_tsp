@@ -55,6 +55,7 @@ bool parse_data_file(Graph mygraph){
         //cout << "y = " << curr_y << '\n';
       }
       Node *curr_node = new Node(curr_x, curr_y, curr_id);
+      cout << *curr_node;
       mygraph.add_node(*curr_node);
 
       part_counter++;
