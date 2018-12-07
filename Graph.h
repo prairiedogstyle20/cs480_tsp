@@ -1,5 +1,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
+#include <vector>
+#include "Node.h"
+#include <math.h>
 
 class Graph {
 	std::vector<Node> nodelist;
@@ -9,7 +12,8 @@ class Graph {
 public:
   Graph();
   void add_node(Node x);
-  void getDist(std::vector<Node> list);
+  double calc_dist(int first_node,int next_node);
+  double getDist(std::vector<Node> list);
   void Swap(const int& i, const int& k);
   void Two_Opt();
 };
