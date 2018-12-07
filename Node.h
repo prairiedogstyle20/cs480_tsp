@@ -1,5 +1,7 @@
 #ifndef NODE_H
 #define NODE_H
+#include <iostream>
+#include <ostream>
 
 class Node {
 
@@ -9,10 +11,10 @@ class Node {
 
   public:
     Node(int, int, int);
-    int getx();
-    int gety();
-    int getid();
-
+    int getx() const;
+    int gety() const;
+    int getid() const;
+    friend std::ostream& operator<<(std::ostream& os, const Node& n);
 };
 
 #endif
