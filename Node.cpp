@@ -18,6 +18,15 @@ int Node::getid() const{
   return id;
 }
 
+Node& Node::operator= (const Node &node)
+{
+    this->x = node.getx();
+    this->y = node.gety();
+    this->id = node.getid();
+    return *this;
+}
+
+
 std::ostream & operator<<(std::ostream& os, const Node& n){
   os << "ID = " << n.getid() << '\n'
      << "X = " << n.getx() << '\n'

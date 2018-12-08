@@ -14,6 +14,7 @@ class Node {
     int getx() const;
     int gety() const;
     int getid() const;
+    Node& operator= (const Node &node);
     friend std::ostream& operator<<(std::ostream& os, const Node& n);
 };
 
