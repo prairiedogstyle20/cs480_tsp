@@ -41,15 +41,18 @@ void Graph::Two_Opt() {
 	int improvement = 0;
 
 	while (improvement < 25) {
+		//get the current distance
 		double lowest_dist = getDist(nodelist);
+
         for (int i = 0; i < sizeOfTour-1; i++)
 		{
             for (int j = i+1; j < sizeOfTour; j++)
 			{
 				//begin swapping
                 Graph::Swap(i, j);
+				//get the distance of the newlist
 				double newDist = getDist(newnodelist);
-
+				//check to see if the new dist is less than the previous record
 				if (newDist < lowest_dist) {
 					improvement = 0;
 					nodelist = newnodelist;
