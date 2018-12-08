@@ -54,6 +54,7 @@ void Graph::Two_Opt() {
 				double newDist = getDist(newnodelist);
 				//check to see if the new dist is less than the previous record
 				if (newDist < lowest_dist) {
+					//change current stuff to the better one
 					improvement = 0;
 					nodelist = newnodelist;
 					lowest_dist = newDist;
@@ -67,12 +68,30 @@ void Graph::Two_Opt() {
 }
 
 void Graph::Swap(const int& i, const int& k) {
+
+	//https://en.wikipedia.org/wiki/2-opt
+	//The algorithm is based off the psuedo-code on the wiki
+
     int sizeOfTour = this -> nodelist.size();
 	// 1. take route[0] to route[i-1] and add them in order to new_route
-    newnodelist=nodelist;
+	for (int c = 0; c <= i - 1; ++c)
+	{
+		//HAVE TO IMPLEMENT THIS
+		new_tour.SetCity(c, tour.GetCity(c));
+	}
+    //newnodelist=nodelist;
 	// 2. take route[i] to route[k] and add them in reverse order to new_route
-    newnodelist[k]=nodelist[i];
-
-    newnodelist[i]=nodelist[k];
+	int position = 0;
+	for (int c = i; c <= k; ++c)
+	{
+		new_tour.SetCity(c, tour.GetCity(k - position));
+		position++;
+	}
+    //newnodelist[k]=nodelist[i];
 	// 3. take route[k+1] to end and add them in order to new_route
+	for (int c = k + 1; c < size; ++c)
+	{
+		new_tour.SetCity(c, tour.GetCity(c));
+	}
+	//newnodelist[i] = nodelist[k];
 }
