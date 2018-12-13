@@ -83,7 +83,7 @@ class Graph:
                 'right': self.build_kdtree(sorted_points[int(n/2) + 1:], depth +1)
               }
 
-    def NNS_KDtree(self,root, search_point, path_list, depth=0, currBest=None):
+    def NNS_KDtree(self,root, search_point, path_list, depth=0, currBest=None,):
         if root is None:
             return currBest
 
@@ -93,9 +93,10 @@ class Graph:
         next_branch = None
 
         if currBest is None:
+            #print('ERROR')
             new_currBest = root['point']
 
-        elif self.calc_dist(search_point, currBest) > self.calc_dist(search_point, root['point']) and root['point'] not in path_list:
+        elif self.calc_dist(search_point, currBest) > self.calc_dist(search_point, root['point']) and search_point.getid() != root['point'].getid():
             #print('Search point id = ', search_point.getid())
             #print('curr best = ',self.calc_dist(search_point, root['point']))
             #print('id = ',root['point'].getid())
@@ -113,7 +114,7 @@ class Graph:
                 next_branch = root['left']
             else:
                 next_branch = root['right']
-        return self.NNS_KDtree(next_branch, search_point,  path_list, depth +1, new_currBest)
+        return self.NNS_KDtree(next_branch, search_point, path_list, depth +1, new_currBest)
 
 
 
@@ -123,8 +124,6 @@ class Graph:
 
 
 def main():
-
-    pp = pprint.PrettyPrinter(indent=4)
 
     begin_time = time.process_time()
     tsp_graph = Graph()
@@ -144,23 +143,15 @@ def main():
     #loop through and append the nearest neighbor to graph path cost
     index = 0
     while index < len(tsp_graph.nodelist) - 1:
-        #print(index)
         tsp_graph.path.append(tsp_graph.NNS_KDtree(mytree, tsp_graph.path[index], tsp_graph.path))
 
         index += 1
 
     cost = 0
 
-    with open('ouput.txt','w') as file:
-        for num in range(len(tsp_graph.path) - 1):
-            file.write(str(tsp_graph.path[num].getid()))
-            file.write('\n') 
-    print(tsp_graph.path[0].getid())
-    #for num in range(len(tsp_graph.path) - 1):
-        #print(tsp_graph.path[num].getid())
-        #cost += tsp_graph.calc_dist(tsp_graph.path[num], tsp_graph.path[num + 1])
-    #print('Path Cost = ', cost)
-    #print(NN.getid(), tsp_graph.nodelist[5000].getid())
+    for num in range(len(tsp_graph.path) - 1):
+        cost += tsp_graph.calc_dist(tsp_graph.path[num], tsp_graph.path[num + 1])
+    print('Path Cost = ', cost)
     end_time = time.process_time()
     print("Time to calculate path = ", end_time - begin_time, " sec")
 
